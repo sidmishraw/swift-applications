@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		362236D71DBB57B0007FE222 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362236D61DBB57B0007FE222 /* main.swift */; };
+		3642FFB21DBEC67E00B305CC /* hackerrankExercises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3642FFB11DBEC67E00B305CC /* hackerrankExercises.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		362236D31DBB57B0007FE222 /* console */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = console; sourceTree = BUILT_PRODUCTS_DIR; };
 		362236D61DBB57B0007FE222 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		3642FFB11DBEC67E00B305CC /* hackerrankExercises.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = hackerrankExercises.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 		362236D51DBB57B0007FE222 /* console */ = {
 			isa = PBXGroup;
 			children = (
+				3642FFB11DBEC67E00B305CC /* hackerrankExercises.swift */,
 				362236D61DBB57B0007FE222 /* main.swift */,
 			);
 			path = console;
@@ -89,7 +92,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Sidharth Mishra";
 				TargetAttributes = {
 					362236D21DBB57B0007FE222 = {
@@ -122,6 +125,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				362236D71DBB57B0007FE222 /* main.swift in Sources */,
+				3642FFB21DBEC67E00B305CC /* hackerrankExercises.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,6 +150,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -194,6 +199,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -213,13 +219,16 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 			};
 			name = Release;
 		};
 		362236DB1DBB57B0007FE222 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				DEVELOPMENT_TEAM = N2D8J75BVU;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -228,7 +237,9 @@
 		362236DC1DBB57B0007FE222 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				DEVELOPMENT_TEAM = N2D8J75BVU;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -244,7 +255,7 @@
 				362236D91DBB57B0007FE222 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		362236DA1DBB57B0007FE222 /* Build configuration list for PBXNativeTarget "console" */ = {
 			isa = XCConfigurationList;
@@ -253,6 +264,7 @@
 				362236DC1DBB57B0007FE222 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
