@@ -15,6 +15,7 @@ import Darwin
 // swift 3.0 version
 // bruteforce
 // recursion
+// optimized :) problem was with the inputs xD
 public func bfsShortestReach(_ ipx: [[Int]]) {
 
     //gather inputs
@@ -88,6 +89,7 @@ public func bfsShortestReach(_ ipx: [[Int]]) {
             
             map = Array(repeating: repeatedValue, count: count)
             self.s = s
+            map![s-1] = 0
         }
     }
 
@@ -193,7 +195,7 @@ public func bfsShortestReach(_ ipx: [[Int]]) {
 
                 _ = distMap.edgelib[$0]!.map({
 
-                    if !($0 == distMap.s! || distMap.traversed[$0]!) {
+                    if !($0 == 0 || distMap.traversed[$0]!) {
 
                         distMap.next.insert($0)
                     }
@@ -242,16 +244,27 @@ public func bfsShortestReach(_ ipx: [[Int]]) {
 
         var op = " "
 
-        for v in verticesArr[run] {
+        _ = distMap.map!.map({
 
-            if v == sArr[run] {
+            if $0 == 0 {
 
-                continue
+                op += ""
             } else {
 
-                op += String(distMap.map![v-1]) + " "
+                op += String($0) + " "
             }
-        }
+        })
+
+//        for v in verticesArr[run] {
+//
+//            if v == sArr[run] {
+//
+//                continue
+//            } else {
+//
+//                op += String(distMap.map![v-1]) + " "
+//            }
+//        }
 
         print(op.trimmingCharacters(in: CharacterSet(charactersIn:" ")))
     }
