@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreText
+import Darwin
 
 // stripping newLine = true by default
 // removes the \n character from the line read from console via standard input
@@ -110,23 +111,92 @@ public class Pp {
 //
 //// using String init to read data directly from file as string
 
-var xx:String?
-var xxE = String.Encoding.utf32
-do {
+//var xx:String?
+//var xxE = String.Encoding.utf32
+//do {
+//
+//    //xx = try? String(contentsOfFile:"/Users/sidmishraw/Documents/iosstuff/abc.txt", usedEncoding: &xxE)
+//    xx = try? String(contentsOfFile:"/Users/sidmishraw/Documents/iosstuff/abc.txt")
+//}
+//
+//var ipxx:[[Int]] = []
+//var ipx = (xx!.characters.split(separator: "\n").map({String($0)})).map({
+//    (x:String) in
+//    ipxx.append(x.characters.split(separator: " ").map({
+//        (y:String.CharacterView) -> Int in
+//        return Int(String(y))!
+//    }))
+//})
 
-    //xx = try? String(contentsOfFile:"/Users/sidmishraw/Documents/iosstuff/abc.txt", usedEncoding: &xxE)
-    xx = try? String(contentsOfFile:"/Users/sidmishraw/Documents/iosstuff/abc.txt")
+// bfsShortestReach(ipxx)
+
+// dijkstraShortestReach(ipxx)
+
+
+// Using C pointer approach in Swift - Dangerous - work with caution
+var x:[Character] = []
+let tmpPointer1 = UnsafeMutablePointer<Int>.allocate(capacity:1)
+let tmpPointer2 = UnsafeMutablePointer<Int>.allocate(capacity:1)
+let tmpPointer3 = UnsafeMutablePointer<Int>.allocate(capacity:1)
+let valist = getVaList([OpaquePointer(tmpPointer1),OpaquePointer(tmpPointer2),OpaquePointer(tmpPointer3)])
+let x3 = vscanf("%d %d %d", valist)
+print(String(tmpPointer1.pointee))
+print(String(tmpPointer2.pointee))
+print(String(tmpPointer3.pointee))
+tmpPointer1.deallocate(capacity: 1)
+tmpPointer2.deallocate(capacity: 1)
+tmpPointer3.deallocate(capacity: 1)
+// Using C pointer approach in Swift - Dangerous - work with caution
+
+// reading from console
+// using buffer
+//public func getLine() -> String {
+//    var buf = String()
+//    var c = getchar()
+//    // 10 is ascii code for newline
+//    while c != EOF && c != 10 {
+//        buf.append(String(UnicodeScalar(UInt32(c))!))
+//        c = getchar()
+//    }
+//    return buf
+//}
+
+//print(getLine())
+
+
+var arr = [3,4,1,2,5,6]
+var min = arr[0]
+var min2 = arr[0]
+
+_ = arr.map {
+
+    switch $0 {
+    case let x where x <= min:
+        min2 = min
+        min = x
+    case let x where x < min2 && x >= min:
+        min2 = x
+    default:
+        return
+    }
 }
 
-var ipxx:[[Int]] = []
-var ipx = (xx!.characters.split(separator: "\n").map({String($0)})).map({
-    (x:String) in
-    ipxx.append(x.characters.split(separator: " ").map({
-        (y:String.CharacterView) -> Int in
-        return Int(String(y))!
-    }))
-})
+print(min)
+print(min2)
+
+//
+//for i in arr {
+//
+//    switchb: switch(i) {
+//    case i where i <= min:
+//        min2 = min
+//        min = i
+//    case i where i < min2 && i >= min:
+//        min2 = i
+//    default:
+//        break switchb
+//    }
+//}
 
 
 
-bfsShortestReach(ipxx)

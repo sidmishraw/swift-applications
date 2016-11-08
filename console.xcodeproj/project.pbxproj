@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		362236D71DBB57B0007FE222 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362236D61DBB57B0007FE222 /* main.swift */; };
 		3642FFB21DBEC67E00B305CC /* hackerrankExercises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3642FFB11DBEC67E00B305CC /* hackerrankExercises.swift */; };
+		36AFA1171DCB275400F7815F /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36AFA1161DCB275400F7815F /* Time.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +29,7 @@
 		362236D31DBB57B0007FE222 /* console */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = console; sourceTree = BUILT_PRODUCTS_DIR; };
 		362236D61DBB57B0007FE222 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		3642FFB11DBEC67E00B305CC /* hackerrankExercises.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = hackerrankExercises.swift; sourceTree = "<group>"; };
+		36AFA1161DCB275400F7815F /* Time.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +46,7 @@
 		362236CA1DBB57B0007FE222 = {
 			isa = PBXGroup;
 			children = (
+				36AFA1141DCB270300F7815F /* analysis-patterns */,
 				3614B7141DC4430700980198 /* .gitignore */,
 				362236D51DBB57B0007FE222 /* console */,
 				362236D41DBB57B0007FE222 /* Products */,
@@ -65,6 +68,22 @@
 				362236D61DBB57B0007FE222 /* main.swift */,
 			);
 			path = console;
+			sourceTree = "<group>";
+		};
+		36AFA1141DCB270300F7815F /* analysis-patterns */ = {
+			isa = PBXGroup;
+			children = (
+				36AFA1151DCB272500F7815F /* bo */,
+			);
+			name = "analysis-patterns";
+			sourceTree = "<group>";
+		};
+		36AFA1151DCB272500F7815F /* bo */ = {
+			isa = PBXGroup;
+			children = (
+				36AFA1161DCB275400F7815F /* Time.swift */,
+			);
+			name = bo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -126,6 +145,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36AFA1171DCB275400F7815F /* Time.swift in Sources */,
 				362236D71DBB57B0007FE222 /* main.swift in Sources */,
 				3642FFB21DBEC67E00B305CC /* hackerrankExercises.swift in Sources */,
 			);

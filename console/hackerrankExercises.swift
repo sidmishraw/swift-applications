@@ -9,6 +9,248 @@
 import Foundation
 import Darwin
 
+/// START - Dijkstra: Shortest Reach 2
+/// difficulty - hard
+/// Dijkstra: Shortest Reach 2
+/// swift 2.2 on hackerrank website
+/// swift 3.0 version
+/// use my algo modifying it to react to variable distances and not 6
+/// Note - cannot use internal or other access specifiers within local scopes i.e
+/// inside functions/methods or closures
+/// cannot conform to Hashable or Equatable protocols when the class is within some local scope
+/// this is because we need to define the == method for the class inorder to conform to the Equatable protocol
+/// and since Swift define's it's version in global scope, the func for the conformant class too has to be globally
+/// accessible. Hence need to define the class in global scope, outside all functions/methods.
+/// Need to review this concept!
+public class Edge:Hashable {
+
+    public var e1:Int
+    public var e2:Int
+
+    public var hashValue: Int {
+
+        return e1.hashValue ^ e2.hashValue
+    }
+
+    init(_ x:Int,_ y:Int) {
+        e1 = x
+        e2 = y
+    }
+
+    public static func ==(lhs: Edge, rhs: Edge) -> Bool {
+
+        return
+            (lhs.e1 == rhs.e1 &&
+                lhs.e2 == rhs.e2) || (lhs.e1 == rhs.e2 &&
+                    lhs.e2 == rhs.e1)
+    }
+}
+
+// distance map
+public class DistMap2 {
+
+    var dmap:[Int]?
+    var vertices:CountableClosedRange<Int>
+    // edge and it's corressponding weight
+    var edges:[Edge:Int] = [:]
+    // holds the adjacency matrix
+    var edgelib:[Int:Set<Int>] = [:]
+    var s:Int?
+    var next:Set<Int> = []
+
+    init(count:Int,repeatedValue:Int) {
+
+        dmap = Array(repeating: repeatedValue, count: count)
+        vertices = 1 ... count
+    }
+
+    public func setS(_ s:Int) {
+
+        self.s = s
+        dmap![s-1] = 0
+    }
+}
+
+/// Again the time is being consumed while reading inputs
+/// to optimize the IO time, I'm planning to read stuff into a set of Strings
+/// then iterate over that set
+public func dijkstraShortestReach(_ ipx:[[Int]]) {
+
+    // gather inputs
+    // nbr of runs
+    // let t = Int(readLine(strippingNewline: true)!)!
+    var ipx1 = 0
+
+    let t = ipx[ipx1][0]
+
+    // vertices ranges for each run
+    var distMaps:[DistMap2] = []
+
+    // gather inputs for each run
+    for _ in 0 ..< t {
+
+        ipx1 += 1
+
+        // reading in metadata for the inputs - 0 - nbr of vertices 1 - nbr of edges
+        // let ti = readLine(strippingNewline: true)!.characters.split(separator: " ").map{Int(String($0))!}
+        let ti = ipx[ipx1]
+
+        // reading in edges and their corressponding weights
+        // [e1,e2,d]
+        // let distMap hold all values needed for computation
+        let distMap = DistMap2(count: ti[0], repeatedValue: -1)
+
+        var edgeInputs:Set<String> = []
+
+        // read all edges as string into a set, so as to eliminate the duplicate entries
+        // to speed up the IO process
+        // this will ensure that the duplicate entries are not needed to be split
+//        for _ in 0 ..< ti[1] {
+//
+//            let ei = readLine(strippingNewline: true)!
+//            edgeInputs.insert(ei)
+//        }
+
+        // read in each edge
+//        for ipedge in edgeInputs {
+        for _ in 0 ..< ti[1] {
+
+            // let ei = readLine(strippingNewline: true)!.characters.split(separator: " ").map{Int(String($0))!}
+            // let ei = ipedge.characters.split(separator: " ").map{Int(String($0))!}
+            ipx1 += 1
+
+            let ei = ipx[ipx1]
+
+            // since edges are un-directed
+            var edge1   = Edge(ei[0], ei[1])
+
+            if distMap.edges[edge1] == nil
+                || ei[2] < distMap.edges[edge1]! {
+
+                distMap.edges[edge1] = ei[2]
+            }
+        }
+
+        ipx1 += 1
+
+        // reading start vertex for the run
+        // let sv = Int(readLine(strippingNewline: true)!.trimmingCharacters(in: CharacterSet(charactersIn: " ")))!
+        let sv = ipx[ipx1][0]
+
+        distMap.setS(sv)
+
+        distMaps.append(distMap)
+    }
+
+    // compute
+    for i in 0 ..< t {
+
+        // get the corressponding distMap
+        var distMap = distMaps[i]
+
+        // build edges lib for adjacency matrix
+        for edge in distMap.edges {
+
+            if distMap.edgelib[edge.key.e1] == nil {
+
+               distMap.edgelib[edge.key.e1] = [edge.key.e2]
+            } else {
+
+               distMap.edgelib[edge.key.e1]!.insert(edge.key.e2)
+            }
+
+            if distMap.edgelib[edge.key.e2] == nil {
+
+                distMap.edgelib[edge.key.e2] = [edge.key.e1]
+            } else {
+
+                distMap.edgelib[edge.key.e2]!.insert(edge.key.e1)
+            }
+        }
+
+        // for the sake of completion
+        // any vertex without edges has an empty set of edges along side it
+        for v in distMap.vertices {
+
+            if distMap.edgelib[v] == nil {
+
+                distMap.edgelib[v] = []
+            }
+        }
+
+        // approach v1.0
+        func recursiveDistCalc2(_ distMap: DistMap2) {
+
+            if distMap.next.isEmpty {
+
+                return
+            }
+
+            _ = distMap.next.map {
+
+                let vrtx = $0
+
+                _ = distMap.edgelib[vrtx]!.map {
+
+                    let adjvrtx = $0
+
+                    let edge = Edge(vrtx,adjvrtx)
+
+                    if distMap.dmap![adjvrtx - 1] == -1
+                        || distMap.dmap![vrtx - 1] + distMap.edges[edge]! < distMap.dmap![adjvrtx - 1] {
+
+                        distMap.dmap![adjvrtx - 1] = distMap.dmap![vrtx - 1] + distMap.edges[edge]!
+
+                        // only insert those vertices if the edge is updated, else do nothing
+                        distMap.next.insert(adjvrtx)
+                    }
+                }
+
+                _ = distMap.next.remove(vrtx)
+            }
+
+//            for vrtx in distMap.next {
+//
+//                for adjvrtx in distMap.edgelib[vrtx]! {
+//
+//                    let edge = Edge(vrtx,adjvrtx)
+//
+//                    if distMap.dmap![adjvrtx - 1] == -1
+//                        || distMap.dmap![vrtx - 1] + distMap.edges[edge]! < distMap.dmap![adjvrtx - 1] {
+//
+//                        distMap.dmap![adjvrtx - 1] = distMap.dmap![vrtx - 1] + distMap.edges[edge]!
+//
+//                        // only insert those vertices if the edge is updated, else do nothing
+//                        distMap.next.insert(adjvrtx)
+//                    }
+//                }
+//
+//              _ = distMap.next.remove(vrtx)
+//            }
+
+            return recursiveDistCalc2(distMap)
+        }
+
+        distMap.next.insert(distMap.s!)
+
+        recursiveDistCalc2(distMap)
+
+        print(distMap.dmap!.reduce(" ") {
+
+            if $1 == 0 {
+
+                return $0 + ""
+            } else {
+
+                return $0 + "\(String($1)) "
+            }
+            }.trimmingCharacters(in: CharacterSet(charactersIn : " ")))
+    }
+}
+/// END - Dijkstra: Shortest Reach 2
+
+/// START - Breadth First Search: Shortest Reach
+// difficulty - medium
 // Breadth First Search: Shortest Reach
 // swift 2.2 version on hackerrank website
 // author - sidharth.mishra <sidmishraw>
@@ -195,7 +437,7 @@ public func bfsShortestReach(_ ipx: [[Int]]) {
 
                 _ = distMap.edgelib[$0]!.map({
 
-                    if !($0 == 0 || distMap.traversed[$0]!) {
+                    if !($0 == distMap.s! || distMap.traversed[$0]!) {
 
                         distMap.next.insert($0)
                     }
@@ -271,6 +513,7 @@ public func bfsShortestReach(_ ipx: [[Int]]) {
 
     return
 }
+/// END - Breadth First Search: Shortest Reach
 
 // Viral advertising
 public func viralAdvertising() {
